@@ -13,10 +13,16 @@ import android.widget.TextView;
  */
 public class MotionHandler extends Activity implements SensorEventListener {
 
+    private static final int SHAKE_THRESHOLD = 800;
     //a TextView
     private TextView tv;
     //the Sensor Manager
     private SensorManager sManager;
+
+    private int count = 0;
+
+    private long lastUpdate;
+    private float last_x, last_y, last_z;
 
     /** Called when the activity is first created. */
     @Override
@@ -68,9 +74,34 @@ public class MotionHandler extends Activity implements SensorEventListener {
             return;
         }
 
+        /*
         //else it will output the Roll, Pitch and Yawn values
         tv.setText("Orientation X (Roll) :"+ Float.toString(event.values[2]) +"\n"+
                 "Orientation Y (Pitch) :"+ Float.toString(event.values[1]) +"\n"+
                 "Orientation Z (Yaw) :"+ Float.toString(event.values[0]));
+                */
+
+        //if (sensor == SensorManager.SENSOR_ACCELEROMETER) {
+            long curTime = System.currentTimeMillis();
+            // only allow one update every 100ms.
+            if ((curTime - lastUpdate) > 100) {
+                long diffTime = (curTime - lastUpdate);
+                lastUpdate = curTime;
+
+                float x = event.values[2];
+                float y = event.values[1];
+                float z = event.values[0];
+
+                float speed = Math.abs(x+y+z - last_x - last_y - last_z) / diffTime * 10000;
+
+                if (speed > SHAKE_THRESHOLD) {
+                    tv.setText("shake detected w/ speed: " + speed + "\nTotal Shakes:"+count);
+                    count++;
+                }
+                last_x = x;
+                last_y = y;
+                last_z = z;
+            }
+        //}
     }
 }
