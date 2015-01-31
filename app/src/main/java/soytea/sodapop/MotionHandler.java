@@ -13,7 +13,7 @@ import android.widget.TextView;
  */
 public class MotionHandler extends Activity implements SensorEventListener {
 
-    private static final int SHAKE_THRESHOLD = 800;
+    private static final int SHAKE_THRESHOLD = 2000;
     //a TextView
     private TextView tv;
     //the Sensor Manager
