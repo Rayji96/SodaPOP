@@ -1,11 +1,13 @@
 package soytea.sodapop;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 /**
@@ -13,17 +15,35 @@ import android.widget.TextView;
  */
 public class MotionHandler extends Activity implements SensorEventListener {
 
-    private static final int SHAKE_THRESHOLD = 2000;
+    private static final int SHAKE_THRESHOLD = 1500;
     //a TextView
     private TextView tv;
     private TextView shakes;
     //the Sensor Manager
     private SensorManager sManager;
 
-    private int count = 0;
+    private Counter counter;
 
     private long lastUpdate;
     private float last_x, last_y, last_z;
+
+/*
+    PagerAdapter pagerAdapter;
+    ViewPager mViewPager;
+
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        // ViewPager and its adapters use support library
+        // fragments, so use getSupportFragmentManager.
+        pagerAdapter =
+                new PagerAdapter(
+                        getSupportFragmentManager());
+        mViewPager = (ViewPager) findViewById(R.id.pager);
+        mViewPager.setAdapter(mDemoCollectionPagerAdapter);
+    }
+    */
 
     /** Called when the activity is first created. */
     @Override
@@ -31,6 +51,8 @@ public class MotionHandler extends Activity implements SensorEventListener {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        this.counter = new Counter();
 
         //get the TextView from the layout file
         tv = (TextView) findViewById(R.id.tv);
@@ -40,6 +62,25 @@ public class MotionHandler extends Activity implements SensorEventListener {
 
         //get a hook to the sensor service
         sManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+    }
+
+    public void openShop (View view) {
+
+        Intent shop = new Intent(this,ShopActivity.class);
+        startActivity(shop);
+    }
+
+
+    public void addPassive (View view){
+        if (counter.sub(100)) {
+            counter.addPassive(1);
+        }
+    }
+
+    public void addMultiply (View view){
+        if (counter.sub(200)) {
+            counter.addMultiplier(2);
+        }
     }
 
     //when this Activity starts
@@ -71,6 +112,7 @@ public class MotionHandler extends Activity implements SensorEventListener {
     @Override
     public void onSensorChanged(SensorEvent event)
     {
+
         //if sensor is unreliable, return void
         if (event.accuracy == SensorManager.SENSOR_STATUS_UNRELIABLE)
         {
@@ -88,6 +130,8 @@ public class MotionHandler extends Activity implements SensorEventListener {
             long curTime = System.currentTimeMillis();
             // only allow one update every 100ms.
             if ((curTime - lastUpdate) > 100) {
+                shakes.setText(""+counter.getCount());
+
                 long diffTime = (curTime - lastUpdate);
                 lastUpdate = curTime;
 
@@ -98,11 +142,8 @@ public class MotionHandler extends Activity implements SensorEventListener {
                 float speed = Math.abs(x+y+z - last_x - last_y - last_z) / diffTime * 10000;
 
                 if (speed > SHAKE_THRESHOLD) {
-                    tv.setText("shake detected w/ speed: " + speed + "\nTotal Shakes:"+count);
-                    count++;
-                    shakes.setText(""+count);
+                    counter.add1();
                 }
-
 
                 last_x = x;
                 last_y = y;

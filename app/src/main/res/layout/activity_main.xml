@@ -23,4 +23,35 @@
         android:textSize="42pt"
         android:textColor="#ffffffff"/>
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Buy Efficient Shaking"
+        android:id="@+id/multiply2"
+        android:layout_weight="0.29"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:onClick="addMultiply" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Enslave Minions (+1 shake / sec)"
+        android:id="@+id/passive1"
+        android:layout_weight="0.31"
+        android:layout_below="@+id/multiply2"
+        android:layout_alignParentLeft="true"
+        android:onClick="addPassive"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SHOP"
+        android:id="@+id/shopButton"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/shakes"
+        android:layout_alignStart="@+id/shakes"
+        android:onClick="openShop"/>
+
 </RelativeLayout>
