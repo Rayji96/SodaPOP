@@ -1,6 +1,7 @@
 package soytea.sodapop;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -61,6 +62,12 @@ public class MotionHandler extends Activity implements SensorEventListener {
 
         //get a hook to the sensor service
         sManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+    }
+
+    public void openShop (View view) {
+
+        Intent shop = new Intent(this,ShopActivity.class);
+        startActivity(shop);
     }
 
 

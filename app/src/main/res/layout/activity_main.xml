@@ -44,4 +44,14 @@
         android:layout_alignParentLeft="true"
         android:onClick="addPassive"/>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SHOP"
+        android:id="@+id/shopButton"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/shakes"
+        android:layout_alignStart="@+id/shakes"
+        android:onClick="openShop"/>
+
 </RelativeLayout>
