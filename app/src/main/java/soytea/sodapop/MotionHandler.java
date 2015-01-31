@@ -6,15 +6,15 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.widget.*;
-import android.view.*;
+import android.view.View;
+import android.widget.TextView;
 
 /**
  * Created by shaw on 15-01-30.
  */
 public class MotionHandler extends Activity implements SensorEventListener {
 
-    private static final int SHAKE_THRESHOLD = 2000;
+    private static final int SHAKE_THRESHOLD = 1500;
     //a TextView
     private TextView tv;
     private TextView shakes;
@@ -26,7 +26,23 @@ public class MotionHandler extends Activity implements SensorEventListener {
     private long lastUpdate;
     private float last_x, last_y, last_z;
 
+/*
+    PagerAdapter pagerAdapter;
+    ViewPager mViewPager;
 
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        // ViewPager and its adapters use support library
+        // fragments, so use getSupportFragmentManager.
+        pagerAdapter =
+                new PagerAdapter(
+                        getSupportFragmentManager());
+        mViewPager = (ViewPager) findViewById(R.id.pager);
+        mViewPager.setAdapter(mDemoCollectionPagerAdapter);
+    }
+    */
 
     /** Called when the activity is first created. */
     @Override
@@ -47,14 +63,17 @@ public class MotionHandler extends Activity implements SensorEventListener {
         sManager = (SensorManager) getSystemService(SENSOR_SERVICE);
     }
 
+
     public void addPassive (View view){
-        tv.setText("PASSIVE CALLED");
-        counter.addPassive(1);
+        if (counter.sub(100)) {
+            counter.addPassive(1);
+        }
     }
 
-
     public void addMultiply (View view){
-        counter.addMultiplier(2);
+        if (counter.sub(200)) {
+            counter.addMultiplier(2);
+        }
     }
 
     //when this Activity starts
@@ -87,7 +106,6 @@ public class MotionHandler extends Activity implements SensorEventListener {
     public void onSensorChanged(SensorEvent event)
     {
 
-        shakes.setText(""+counter.getCount());
         //if sensor is unreliable, return void
         if (event.accuracy == SensorManager.SENSOR_STATUS_UNRELIABLE)
         {
@@ -105,6 +123,8 @@ public class MotionHandler extends Activity implements SensorEventListener {
             long curTime = System.currentTimeMillis();
             // only allow one update every 100ms.
             if ((curTime - lastUpdate) > 100) {
+                shakes.setText(""+counter.getCount());
+
                 long diffTime = (curTime - lastUpdate);
                 lastUpdate = curTime;
 
@@ -115,10 +135,8 @@ public class MotionHandler extends Activity implements SensorEventListener {
                 float speed = Math.abs(x+y+z - last_x - last_y - last_z) / diffTime * 10000;
 
                 if (speed > SHAKE_THRESHOLD) {
-                    tv.setText("shake detected w/ speed: " + speed);
                     counter.add1();
                 }
-
 
                 last_x = x;
                 last_y = y;

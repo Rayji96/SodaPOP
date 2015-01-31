@@ -26,6 +26,14 @@ public class Counter {
         this.count += n;
     }
 
+    public boolean sub(int n){
+        if (count < n){
+            return false;
+        }
+        count -= n;
+        return true;
+    }
+
     public void addMultiplier(int m){
         this.multiplier *= m;
     }
