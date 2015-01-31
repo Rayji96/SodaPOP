@@ -48,6 +48,7 @@ public class MotionHandler extends Activity implements SensorEventListener {
     }
 
     public void addPassive (View view){
+        tv.setText("PASSIVE CALLED");
         counter.addPassive(1);
     }
 
