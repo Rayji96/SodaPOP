@@ -6,7 +6,8 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.widget.TextView;
+import android.widget.*;
+import android.view.*;
 
 /**
  * Created by shaw on 15-01-30.
@@ -20,10 +21,12 @@ public class MotionHandler extends Activity implements SensorEventListener {
     //the Sensor Manager
     private SensorManager sManager;
 
-    private int count = 0;
+    private Counter counter;
 
     private long lastUpdate;
     private float last_x, last_y, last_z;
+
+
 
     /** Called when the activity is first created. */
     @Override
@@ -31,6 +34,8 @@ public class MotionHandler extends Activity implements SensorEventListener {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        this.counter = new Counter();
 
         //get the TextView from the layout file
         tv = (TextView) findViewById(R.id.tv);
@@ -40,6 +45,15 @@ public class MotionHandler extends Activity implements SensorEventListener {
 
         //get a hook to the sensor service
         sManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+    }
+
+    public void addPassive (View view){
+        counter.addPassive(1);
+    }
+
+
+    public void addMultiply (View view){
+        counter.addMultiplier(2);
     }
 
     //when this Activity starts
@@ -71,6 +85,8 @@ public class MotionHandler extends Activity implements SensorEventListener {
     @Override
     public void onSensorChanged(SensorEvent event)
     {
+
+        shakes.setText(""+counter.getCount());
         //if sensor is unreliable, return void
         if (event.accuracy == SensorManager.SENSOR_STATUS_UNRELIABLE)
         {
@@ -98,9 +114,8 @@ public class MotionHandler extends Activity implements SensorEventListener {
                 float speed = Math.abs(x+y+z - last_x - last_y - last_z) / diffTime * 10000;
 
                 if (speed > SHAKE_THRESHOLD) {
-                    tv.setText("shake detected w/ speed: " + speed + "\nTotal Shakes:"+count);
-                    count++;
-                    shakes.setText(""+count);
+                    tv.setText("shake detected w/ speed: " + speed);
+                    counter.add1();
                 }
 
 
