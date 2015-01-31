@@ -8,6 +8,21 @@
 
     <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tv" />
+        android:id="@+id/tv"
+        android:background="#ff01075f"
+        android:textColor="#ffffffff" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Text"
+        android:id="@+id/shakes"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="53dp"
+        android:textStyle="bold"
+        android:shadowColor="#ff770016"
+        android:textSize="42pt"
+        android:textColor="#ffffffff" />
 
 </RelativeLayout>
