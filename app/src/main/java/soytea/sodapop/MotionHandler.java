@@ -16,7 +16,7 @@ public class MotionHandler extends Activity implements SensorEventListener {
     private static final int SHAKE_THRESHOLD = 2000;
     //a TextView
     private TextView tv;
-    //private TextView shakes;
+    private TextView shakes;
     //the Sensor Manager
     private SensorManager sManager;
 
@@ -36,7 +36,7 @@ public class MotionHandler extends Activity implements SensorEventListener {
         tv = (TextView) findViewById(R.id.tv);
         tv.setText("MotionHandler created");
 
-        //shakes = (TextView) findViewById(R.id.shakes);
+        shakes = (TextView) findViewById(R.id.shakes);
 
         //get a hook to the sensor service
         sManager = (SensorManager) getSystemService(SENSOR_SERVICE);
@@ -100,9 +100,9 @@ public class MotionHandler extends Activity implements SensorEventListener {
                 if (speed > SHAKE_THRESHOLD) {
                     tv.setText("shake detected w/ speed: " + speed + "\nTotal Shakes:"+count);
                     count++;
+                    shakes.setText(""+count);
                 }
 
-                //shakes.setText(count);
 
                 last_x = x;
                 last_y = y;
