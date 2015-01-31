@@ -13,7 +13,8 @@ public class Counter {
         count = 0;
         multiplier = 1;
         passive = 0;
-        new Passive(this, 1000).run();
+        Thread loop = new Thread(new Passive(this, 1000));
+        loop.start();
 
     }
 
