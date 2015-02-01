@@ -22,12 +22,15 @@ public class Counter {
         count+= multiplier;
     }
 
+    /*
     public void add(int n){
         this.count += n;
     }
+    */
 
     public boolean sub(int n){
         if (count < n){
+            System.out.println("count="+count+" n="+n);
             return false;
         }
         count -= n;
