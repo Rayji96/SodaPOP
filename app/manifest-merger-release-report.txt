@@ -25,7 +25,7 @@ MERGED from com.android.support:support-v4:21.0.3:16:5
 		ADDED from AndroidManifest.xml:7:9
 	android:theme
 		ADDED from AndroidManifest.xml:9:9
-activity#soytea.sodapop.MotionHandler
+activity#soytea.sodapop.MainActivity
 ADDED from AndroidManifest.xml:10:9
 	android:screenOrientation
 		ADDED from AndroidManifest.xml:13:13
@@ -45,6 +45,10 @@ category#android.intent.category.LAUNCHER
 ADDED from AndroidManifest.xml:18:17
 	android:name
 		ADDED from AndroidManifest.xml:18:27
+activity#soytea.sodapop.ShopActivity
+ADDED from AndroidManifest.xml:21:9
+	android:name
+		ADDED from AndroidManifest.xml:21:19
 uses-sdk
 INJECTED from AndroidManifest.xml:0:0 reason: use-sdk injection requested
 MERGED from com.android.support:appcompat-v7:21.0.3:15:5
