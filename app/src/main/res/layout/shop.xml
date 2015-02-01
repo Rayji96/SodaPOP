@@ -7,14 +7,16 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Buy Efficient Shaking\n Cost: 200"
-        android:id="@+id/pershake2"
-        android:layout_weight="0.29" />
+        android:text="Buy Efficient Shaking (x2 per shake) \n Cost: 50"
+        android:id="@+id/multiply"
+        android:layout_weight="0.29"
+        android:onClick="addMultiply"  />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Enslave Minions (+1 shake / sec)\n Cost: 100"
-        android:id="@+id/multiply2"
-        android:layout_weight="0.31" />
+        android:text="Enslave Minions (+1 shake / sec)\n Cost: 20"
+        android:id="@+id/passive"
+        android:layout_weight="0.31"
+        android:onClick="addPassive"  />
 </LinearLayout>
