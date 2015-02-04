@@ -57,7 +57,7 @@ public class MainActivity extends Activity implements SensorEventListener {
 
         //get the TextView from the layout file
         tv = (TextView) findViewById(R.id.tv);
-        tv.setText("MotionHandler created");
+//        tv.setText("MotionHandler created");
 
         shakes = (TextView) findViewById(R.id.shakes);
 
